@@ -21,11 +21,13 @@ function App() {
   const increaseCount = () => {
 
     if (counter + value > 30) {
-     
+
       console.log("The last value is the : ", Number(localStorage.getItem("counter")))
       alert("Counter not more that the counter 20")
     } else {
-      setCounter(counter + value)
+      // instead of the this 
+      //setCounter(counter + value)
+      setCounter(prev => prev + value)
 
     }
   }
@@ -41,13 +43,14 @@ function App() {
   const resetCount = () => {
     setCounter(0)
     //setValue(0)
-  
+
   }
   return (
     <div>
       <h3>plase enter number of the increment and by default 1 </h3>
       <input
         type='number'
+        value={value}
         placeholder='Default increment 1'
         onChange={handleNumber}
       />
