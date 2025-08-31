@@ -1,32 +1,57 @@
 import React from "react";
 
-function DisplayTask({ taskList }) {
+function DisplayTask({ taskList, handleEdit, handleDelete }) {
   return (
     <div className="p-6 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">Task List</h1>
+      <h1 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+        📋 Task List
+      </h1>
 
       {taskList && taskList.length ? (
-        <ul className="space-y-3">
+        <ul className="space-y-4">
           {taskList.map((task) => (
             <li
-              key={task._id}
-              className="flex justify-between items-center p-3 bg-white rounded-lg shadow hover:shadow-lg transition"
+              key={task.id}
+              className="flex justify-between items-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition"
             >
-              <span className="text-gray-700 font-medium">{task.task}</span>
+              {/* Task text */}
+              <span className="text-gray-800 font-medium text-lg">
+                {task.task}
+              </span>
+
+              {/* Status badge */}
               <span
                 className={`px-3 py-1 text-sm font-semibold rounded-full ${
                   task.isComplete.toLowerCase() === "complete"
-                    ? "bg-green-100 text-green-600"
-                    : "bg-red-100 text-red-600"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
                 }`}
               >
                 {task.isComplete}
               </span>
+
+              {/* Actions */}
+              <div className="flex flex-col space-y-2 ml-4">
+                <button
+                  onClick={() => handleEdit(task.id)}
+                  className="px-3 py-1 rounded-lg bg-yellow-400 text-white font-semibold hover:bg-yellow-500 transition"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(task.id)}
+                  className="px-3 py-1 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600 transition"
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>
       ) : (
-        <h2 className="text-gray-500 text-lg">No task list is there</h2>
+        <h2 className="text-gray-500 text-lg text-center">
+          🚫 No tasks available
+        </h2>
       )}
     </div>
   );
